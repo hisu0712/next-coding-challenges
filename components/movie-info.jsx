@@ -21,8 +21,17 @@ export default async function MovieInfo({ id }) {
         <h1 className={potato.title}>{movie.title}</h1>
         <h3>⭐{movie.vote_average.toFixed(1)}</h3>
         <p>{movie.overview}</p>
-        <a href={movie.homepage} target={"_blank"}>Homepage &rarr;</a>
+        <a href={movie.homepage} target={"_blank"}>
+          Homepage &rarr;
+        </a>
       </div>
+
+      {movie.production_companies.map((company) => (
+        <li key={company.id}>
+          <img src={company.logo_path} alt />
+          {company.name}
+        </li>
+      ))}
     </div>
   );
 }

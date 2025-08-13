@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 
 export default function Movie({ title, id, poster_path }) {
   const router = useRouter();
+
   const onClick = () => {
-    router.push(`/movies/${id}`);
+    router.push(`/credits/${id}`);
   };
 
   return (
@@ -16,4 +17,4 @@ export default function Movie({ title, id, poster_path }) {
       <Link href={`/movies/${id}`}>{title}</Link>
     </div>
   );
-} 
+}
