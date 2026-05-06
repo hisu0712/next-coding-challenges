@@ -1,0 +1,22 @@
+.container {
+}
+
+.section_recommend h3,
+.section_all h3 {
+}
+
+.section_recommend {
+}
+.section_recommend .movie_wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.section_all {
+}
+.section_all .movie_wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 5px;
+  row-gap: 10px;
+}
