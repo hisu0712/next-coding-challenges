@@ -1,9 +1,13 @@
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ q: string }>;
-}) {
-  const { q } = await searchParams;
+import style from "./page.module.css";
+import MovieItem from "@/components/movie-item";
+import movies from "@/dummy.json";
 
-  return <div>search 페이지: {q}</div>;
+export default async function Page() {
+  return (
+    <div className={style.container}>
+      {movies.map((movie) => (
+        <MovieItem key={movie.id} {...movie} />
+      ))}
+    </div>
+  );
 }
