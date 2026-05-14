@@ -1,3 +1,4 @@
+import { BookData } from "@/types";
 import style from "./page.module.css";
 
 export default async function Page({
@@ -14,7 +15,7 @@ export default async function Page({
     return <div>오류가 발생했습니다...</div>;
   }
 
-  const book = await response.json();
+  const book: BookData = await response.json();
 
   const { title, subTitle, description, author, publisher, coverImgUrl } = book;
 
