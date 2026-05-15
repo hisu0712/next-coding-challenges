@@ -1,6 +1,18 @@
 import { MovieData } from "@/types";
 import style from "./page.module.css";
 
+export async function generateStaticParams() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie`
+  );
+
+  const movies: MovieData[] = await response.json();
+
+  return movies.map((movie) => ({
+    id: String(movie.id),
+  }));
+}
+
 export default async function Page({
   params,
 }: {
