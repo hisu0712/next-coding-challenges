@@ -1,0 +1,5 @@
+.container {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: rgb(230, 230, 230);
+}
