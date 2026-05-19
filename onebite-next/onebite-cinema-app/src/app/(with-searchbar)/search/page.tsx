@@ -8,7 +8,7 @@ async function SearchResult({ q }: { q: string }) {
   await delay(1500);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie/search?q=${q}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/search?q=${q}`
   );
   if (!response.ok) return <div>오류가 발생했습니다...</div>;
 

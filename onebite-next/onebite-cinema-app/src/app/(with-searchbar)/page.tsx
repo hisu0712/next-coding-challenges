@@ -10,7 +10,7 @@ async function AllMovies() {
   await delay(1500);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie`,
     { cache: "force-cache" }
   );
   if (!response) return <div>오류가 발생했습니다...</div>;
@@ -30,7 +30,7 @@ async function RecoMovies() {
   await delay(3000);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie/random`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/random`,
     {
       next: { revalidate: 3 },
     }

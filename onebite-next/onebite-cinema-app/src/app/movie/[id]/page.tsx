@@ -1,9 +1,11 @@
-import { MovieData } from "@/types";
+import { MovieData, ReviewData } from "@/types";
 import style from "./page.module.css";
+import ReviewItem from "@/components/skeleton/review-item";
+import ReviewEditor from "@/components/skeleton/review-editor";
 
 export async function generateStaticParams() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie`
   );
 
   const movies: MovieData[] = await response.json();
@@ -13,15 +15,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string | string[] }>;
-}) {
-  const { id } = await params;
-
+async function MovieDetail({ movieId }: { movieId: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_API}/movie/${id}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${movieId}`
   );
   if (!response.ok) return <div>오류가 발생했습니다...</div>;
 
@@ -59,6 +55,42 @@ export default async function Page({
           <div className={style.description}>{description}</div>
         </div>
       </div>
+    </div>
+  );
+}
+
+async function ReviewList({ movieId }: { movieId: string }) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/movie/${movieId}`
+  );
+
+  if (!response.ok) {
+    throw new Error(`Review fetch failed: ${response.statusText}`);
+  }
+
+  const reviews: ReviewData[] = await response.json();
+
+  return (
+    <section>
+      {reviews.map((review) => (
+        <ReviewItem key={`review-item-${review.id}`} {...review} />
+      ))}
+    </section>
+  );
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  return (
+    <div className={style.container}>
+      <MovieDetail movieId={id} />
+      <ReviewEditor movieId={id} />
+      <ReviewList movieId={id} />
     </div>
   );
 }
