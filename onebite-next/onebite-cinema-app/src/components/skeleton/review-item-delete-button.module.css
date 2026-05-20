@@ -1,0 +1,6 @@
+.delete_btn {
+  text-decoration: underline;
+  cursor: pointer;
+  color: gray;
+  font-size: 14px;
+}

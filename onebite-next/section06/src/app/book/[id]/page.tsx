@@ -45,7 +45,8 @@ async function BookDetail({ bookId }: { bookId: string }) {
 
 async function ReviewList({ bookId }: { bookId: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`,
+    { next: { tags: [`review-${bookId}`] } } // revalidateTag(`review-${bookId}`); 태그 기준 재검증
   );
 
   if (!response.ok) {
