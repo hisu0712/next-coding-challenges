@@ -1,8 +1,8 @@
 import { MovieData, ReviewData } from "@/types";
 import style from "./page.module.css";
-import ReviewItem from "@/components/skeleton/review-item";
-import ReviewEditor from "@/components/skeleton/review-editor";
 import { notFound } from "next/navigation";
+import ReviewItem from "@/components/review-item";
+import ReviewEditor from "@/components/review-editor";
 
 export async function generateStaticParams() {
   const response = await fetch(

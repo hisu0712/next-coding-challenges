@@ -2,12 +2,11 @@ import MovieItem from "@/components/movie-item";
 import style from "./page.module.css";
 import { MovieData } from "@/types";
 import delay from "@/util/delay";
-import MovieItemSkeleton from "@/components/skeleton/movie-item-skeleton";
 import { Suspense } from "react";
 import MovieListSkeleton from "@/components/skeleton/movie-list-skeleton";
 
 async function AllMovies() {
-  await delay(1500);
+  await delay(500);
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie`,
@@ -27,7 +26,7 @@ async function AllMovies() {
 }
 
 async function RecoMovies() {
-  await delay(3000);
+  await delay(1500);
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/random`,
