@@ -3,6 +3,8 @@ import style from "./page.module.css";
 import { notFound } from "next/navigation";
 import ReviewItem from "@/components/review-item";
 import ReviewEditor from "@/components/review-editor";
+import Image from "next/image";
+import { title } from "process";
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -86,6 +88,32 @@ async function ReviewList({ movieId }: { movieId: string }) {
       ))}
     </section>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const response = await fetch(
+    `
+    ${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${id}
+  `,
+    { cache: "force-cache" }
+  );
+  if (!response.ok) throw new Error(response.statusText);
+
+  const movie: MovieData = await response.json();
+
+  return {
+    title: `${movie.title} - 한입시네마`,
+    description: `${movie.description}`,
+    openGraph: {
+      title: `${movie.title} - 한입시네마`,
+      description: `${movie.description}`,
+    },
+  };
 }
 
 export default async function Page({

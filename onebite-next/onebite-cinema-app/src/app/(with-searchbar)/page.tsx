@@ -4,6 +4,7 @@ import { MovieData } from "@/types";
 import delay from "@/util/delay";
 import { Suspense } from "react";
 import MovieListSkeleton from "@/components/skeleton/movie-list-skeleton";
+import { Metadata } from "next";
 
 async function AllMovies() {
   await delay(500);
@@ -47,7 +48,16 @@ async function RecoMovies() {
   );
 }
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "한입 시네마",
+  description: "한입 시네마에 등록된 영화를 만나보세요",
+  openGraph: {
+    title: "한입 시네마",
+    description: "한입 시네마에 등록된 영화를 만나보세요",
+  },
+};
 
 export default async function Home() {
   return (
