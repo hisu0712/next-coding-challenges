@@ -1,10 +1,28 @@
-// 경로 상의 값들(query, params 등)은 모두 페이지에 props로 전달됨
+import BookItem from "@/components/book-item";
+import { BookData } from "@/types";
+
+// searchParams이 페이지 컴포넌트 props로 자동 제공됨
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ q: string }>;
+  searchParams: Promise<{ q?: string }>;
 }) {
   const { q } = await searchParams;
 
-  return <div>서치 페이지 {q}</div>;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`
+  );
+  if (!response.ok) {
+    return <div>오류가 발생했습니다...</div>;
+  }
+
+  const books: BookData[] = await response.json();
+
+  return (
+    <div>
+      {books.map((book) => (
+        <BookItem key={book.id} {...book} />
+      ))}
+    </div>
+  );
 }
